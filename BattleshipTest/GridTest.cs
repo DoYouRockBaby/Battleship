@@ -16,6 +16,20 @@ namespace GridTest
         }
 
         [TestMethod]
+        [ExpectedException(typeof(Grid.NullSizeException))]
+        public void NewGrid0SizeExceptionX()
+        {
+            new Grid(0, 1);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Grid.NullSizeException))]
+        public void NewGrid0SizeExceptionY()
+        {
+            new Grid(1, 0);
+        }
+
+        [TestMethod]
         public void AddShipTest()
         {
             Ship ship1 = new Ship("Maximator", 4);
