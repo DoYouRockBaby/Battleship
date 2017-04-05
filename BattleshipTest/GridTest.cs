@@ -38,16 +38,16 @@ namespace GridTest
             TestGrid.AddShip(ship1, new Position(4, 2), Grid.Orientation.Horizontal);
             TestGrid.AddShip(ship2, new Position(5, 4), Grid.Orientation.Vertical);
 
-            Assert.Equals(Grid.CaseState.Empty, TestGrid.GetCaseState(new Position(3, 2)));
-            Assert.Equals(Grid.CaseState.Nothing, TestGrid.GetCaseState(new Position(4, 2)));
-            Assert.Equals(Grid.CaseState.Nothing, TestGrid.GetCaseState(new Position(5, 2)));
-            Assert.Equals(Grid.CaseState.Nothing, TestGrid.GetCaseState(new Position(6, 2)));
-            Assert.Equals(Grid.CaseState.Nothing, TestGrid.GetCaseState(new Position(7, 2)));
-            Assert.Equals(Grid.CaseState.Empty, TestGrid.GetCaseState(new Position(8, 2)));
-            Assert.Equals(Grid.CaseState.Empty, TestGrid.GetCaseState(new Position(5, 3)));
-            Assert.Equals(Grid.CaseState.Nothing, TestGrid.GetCaseState(new Position(5, 4)));
-            Assert.Equals(Grid.CaseState.Nothing, TestGrid.GetCaseState(new Position(5, 5)));
-            Assert.Equals(Grid.CaseState.Empty, TestGrid.GetCaseState(new Position(5, 6)));
+            Assert.AreEqual(Grid.CaseState.Empty, TestGrid.GetCaseState(new Position(3, 2)));
+            Assert.AreEqual(Grid.CaseState.Nothing, TestGrid.GetCaseState(new Position(4, 2)));
+            Assert.AreEqual(Grid.CaseState.Nothing, TestGrid.GetCaseState(new Position(5, 2)));
+            Assert.AreEqual(Grid.CaseState.Nothing, TestGrid.GetCaseState(new Position(6, 2)));
+            Assert.AreEqual(Grid.CaseState.Nothing, TestGrid.GetCaseState(new Position(7, 2)));
+            Assert.AreEqual(Grid.CaseState.Empty, TestGrid.GetCaseState(new Position(8, 2)));
+            Assert.AreEqual(Grid.CaseState.Empty, TestGrid.GetCaseState(new Position(5, 3)));
+            Assert.AreEqual(Grid.CaseState.Nothing, TestGrid.GetCaseState(new Position(5, 4)));
+            Assert.AreEqual(Grid.CaseState.Nothing, TestGrid.GetCaseState(new Position(5, 5)));
+            Assert.AreEqual(Grid.CaseState.Empty, TestGrid.GetCaseState(new Position(5, 6)));
         }
 
         [TestMethod]
@@ -57,26 +57,26 @@ namespace GridTest
 
             //The ship is ok
             TestGrid.AddShip(ship1, new Position(4, 2), Grid.Orientation.Horizontal);
-            Assert.Equals(Grid.CaseState.Nothing, TestGrid.GetCaseState(new Position(4, 2)));
-            Assert.Equals(Grid.CaseState.Nothing, TestGrid.GetCaseState(new Position(5, 2)));
+            Assert.AreEqual(Grid.CaseState.Nothing, TestGrid.GetCaseState(new Position(4, 2)));
+            Assert.AreEqual(Grid.CaseState.Nothing, TestGrid.GetCaseState(new Position(5, 2)));
 
             //The ship is missed, still ok
             Grid.CaseState state1 = TestGrid.ShootCase(new Position(3, 2));
-            Assert.Equals(Grid.CaseState.Empty, state1);
-            Assert.Equals(Grid.CaseState.Nothing, TestGrid.GetCaseState(new Position(4, 2)));
-            Assert.Equals(Grid.CaseState.Nothing, TestGrid.GetCaseState(new Position(5, 2)));
+            Assert.AreEqual(Grid.CaseState.Empty, state1);
+            Assert.AreEqual(Grid.CaseState.Nothing, TestGrid.GetCaseState(new Position(4, 2)));
+            Assert.AreEqual(Grid.CaseState.Nothing, TestGrid.GetCaseState(new Position(5, 2)));
 
             //The ship is hurted
-            Grid.CaseState state2 = TestGrid.ShootCase(new Position(3, 2));
-            Assert.Equals(Grid.CaseState.Hurted, state2);
-            Assert.Equals(Grid.CaseState.Hurted, TestGrid.GetCaseState(new Position(4, 2)));
-            Assert.Equals(Grid.CaseState.Nothing, TestGrid.GetCaseState(new Position(5, 2)));
+            Grid.CaseState state2 = TestGrid.ShootCase(new Position(4, 2));
+            Assert.AreEqual(Grid.CaseState.Hurted, state2);
+            Assert.AreEqual(Grid.CaseState.Hurted, TestGrid.GetCaseState(new Position(4, 2)));
+            Assert.AreEqual(Grid.CaseState.Nothing, TestGrid.GetCaseState(new Position(5, 2)));
 
             //The ship is killed
-            Grid.CaseState state3 = TestGrid.ShootCase(new Position(3, 2));
-            Assert.Equals(Grid.CaseState.Killed, state3);
-            Assert.Equals(Grid.CaseState.Killed, TestGrid.GetCaseState(new Position(4, 2)));
-            Assert.Equals(Grid.CaseState.Killed, TestGrid.GetCaseState(new Position(5, 2)));
+            Grid.CaseState state3 = TestGrid.ShootCase(new Position(5, 2));
+            Assert.AreEqual(Grid.CaseState.Killed, state3);
+            Assert.AreEqual(Grid.CaseState.Killed, TestGrid.GetCaseState(new Position(4, 2)));
+            Assert.AreEqual(Grid.CaseState.Killed, TestGrid.GetCaseState(new Position(5, 2)));
         }
 
         [TestMethod]
@@ -87,7 +87,7 @@ namespace GridTest
             Ship addedShip2 = new Ship("Navigator", 2);
 
             TestGrid.AddShip(addedShip1, new Position(4, 2), Grid.Orientation.Horizontal);
-            TestGrid.AddShip(addedShip2, new Position(5, 3), Grid.Orientation.Vertical);
+            TestGrid.AddShip(addedShip2, new Position(5, 1), Grid.Orientation.Vertical);
         }
 
         [TestMethod]
@@ -114,7 +114,6 @@ namespace GridTest
         }
 
         [TestMethod]
-        [ExpectedException(typeof(Grid.ShipCrossException))]
         public void IsOverTest()
         {
             Ship addedShip1 = new Ship("Maximator", 4);
@@ -123,22 +122,22 @@ namespace GridTest
             TestGrid.AddShip(addedShip1, new Position(4, 2), Grid.Orientation.Horizontal);
             TestGrid.AddShip(addedShip2, new Position(5, 3), Grid.Orientation.Vertical);
 
-            Assert.Equals(false, TestGrid.IsOver());
+            Assert.AreEqual(false, TestGrid.IsOver());
 
             //kill the first ship, the game is not over
             TestGrid.ShootCase(new Position(4, 2));
             TestGrid.ShootCase(new Position(5, 2));
             TestGrid.ShootCase(new Position(6, 2));
             TestGrid.ShootCase(new Position(7, 2));
-            Assert.Equals(false, TestGrid.IsOver());
+            Assert.AreEqual(false, TestGrid.IsOver());
 
             //hurt the second ship, the game is not over
             TestGrid.ShootCase(new Position(5, 3));
-            Assert.Equals(false, TestGrid.IsOver());
+            Assert.AreEqual(false, TestGrid.IsOver());
 
             //kill the second ship, the game is over
             TestGrid.ShootCase(new Position(5, 4));
-            Assert.Equals(true, TestGrid.IsOver());
+            Assert.AreEqual(true, TestGrid.IsOver());
         }
     }
 }

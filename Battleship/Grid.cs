@@ -59,6 +59,10 @@ namespace Battleship
             for (int x = 0; x < ShipGrid.Length; x++)
             {
                 ShipGrid[x] = new ShipGridElement[sizeY];
+                for (int y = 0; y < ShipGrid[x].Length; y++)
+                {
+                    ShipGrid[x][y] = new ShipGridElement();
+                }
             }
         }
 
@@ -112,6 +116,25 @@ namespace Battleship
             if (ShipGrid[pos.x][pos.y].State == CaseState.Nothing)
             {
                 ShipGrid[pos.x][pos.y].State = CaseState.Hurted;
+
+                bool isKilled = true;
+                ShipGridElement[] cases = GetCaseByShip(ShipGrid[pos.x][pos.y].Ship);
+                foreach(ShipGridElement elem in cases)
+                {
+                    if(elem.State != CaseState.Hurted)
+                    {
+                        isKilled = false;
+                        break;
+                    }
+                }
+
+                if(isKilled)
+                {
+                    foreach (ShipGridElement elem in cases)
+                    {
+                        elem.State = CaseState.Killed;
+                    }
+                }
             }
 
             return ShipGrid[pos.x][pos.y].State;
