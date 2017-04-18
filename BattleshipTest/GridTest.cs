@@ -13,7 +13,6 @@ namespace GridTest
         public void SetUp()
         {
             TestGrid = new Grid(10, 10);
-            Assert.That(true, Is.EqualTo(false));
         }
 
         [Test]
@@ -53,6 +52,8 @@ namespace GridTest
             Assert.That(Grid.CaseState.Nothing, Is.EqualTo(TestGrid.GetCaseState(new Position(5, 4))));
             Assert.That(Grid.CaseState.Nothing, Is.EqualTo(TestGrid.GetCaseState(new Position(5, 5))));
             Assert.That(Grid.CaseState.Empty, Is.EqualTo(TestGrid.GetCaseState(new Position(5, 6))));
+
+            Assert.That(true, Is.EqualTo(false));
         }
 
         [Test]
