@@ -9,7 +9,7 @@ namespace GridTest
     {
         private Grid TestGrid;
 
-        [SetUpFixture]
+        [OneTimeSetUp]
         public void SetUp()
         {
             TestGrid = new Grid(10, 10);
