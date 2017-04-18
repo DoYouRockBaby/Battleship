@@ -3,6 +3,7 @@ solution: Battleship.sln
 install:
   - nuget restore Battleship.sln
   - nuget install NUnit.Runners -Version 3.6.1 -OutputDirectory testrunner
+  - ls -lar
 script:
   - xbuild /p:Configuration=Release Battleship.sln
   - mono ./testrunner/NUnit.Runners.3.6.1/tools/nunit-console.exe ./BattleshipTest/bin/Release/BattleshipTest.dll
