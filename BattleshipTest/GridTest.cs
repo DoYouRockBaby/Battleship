@@ -13,6 +13,7 @@ namespace GridTest
         public void SetUp()
         {
             TestGrid = new Grid(10, 10);
+            Assert.That(true, Is.EqualTo(false));
         }
 
         [Test]
